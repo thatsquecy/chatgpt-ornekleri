@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kitaplar ve Filmler Yorumları</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Kitaplar ve Filmler Yorumları</h1>
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Kitaplar</h2>
+        <p>Buraya kitaplarla ilgili yorumlar yazabilirsiniz.</p>
+      </div>
+      <div class="col-md-6">
+        <h2>Filmler</h2>
+        <p>Buraya filmlerle ilgili yorumlar yazabilirsiniz.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap JS -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
