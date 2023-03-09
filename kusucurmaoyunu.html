@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kuş Uçurma Oyunu</title>
+    <style>
+      #kuş {
+        position: absolute;
+        left: 20px;
+        top: 200px;
+        width: 50px;
+        height: 50px;
+        background-image: url('https://parspng.com/wp-content/uploads/2022/01/birdpng.parspng.com-7-600x499.png');
+        background-size: cover;
+      }
+
+
+      #puan {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      #oyun-alanı {
+        position: relative;
+        height: 400px;
+        width: 100px;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Kuş Uçurma Oyunu</h1>
+    <div id="oyun-alanı">
+      <div id="kuş"></div>
+    </div>
+    <div id="puan">0</div>
+    <script>
+      const kuş = document.getElementById('kuş');
+      const engeller = document.querySelectorAll('.engel');
+      const puan = document.getElementById('puan');
+      let oyunBitti = false;
+      let skor = 0;
+
+      function hareketEttir(y) {
+        const yKoordinatı = parseInt(window.getComputedStyle(kuş).getPropertyValue('top'));
+        if (yKoordinatı < 0 || yKoordinatı > 350) {
+          oyunuDuraklat();
+        }
+        engeller.forEach(function(engel) {
+          if (çarpışma(engel, kuş)) {
+            oyunuDuraklat();
+          }
+        });
+        if (!oyunBitti) {
+          kuş.style.top = yKoordinatı + y + 'px';
+        }
+      }
+
+      function çarpışma(e, k) {
+        eRekt = e.getBoundingClientRect();
+        kRekt = k.getBoundingClientRect();
+
+        return !(
+          eRekt.bottom < kRekt.top ||
+          eRekt.top > kRekt.bottom ||
+          eRekt.right < kRekt.left ||
+          eRekt.left > kRekt.right
+        );
+      }
+
+      let hareketAralığı = setInterval(function() {
+        skor++;
+        puan.innerHTML = skor;
+        if (skor > 0 && skor % 10 === 0) {
+          engeller.forEach(function(engel) {
+            let hız = parseFloat(window.getComputedStyle(engel).getPropertyValue('animation-duration'));
+            hız -= 0.1;
+            engel.style.animationDuration = hız + 's';
+          });
+        }
+
+        hareketEttir(3);
+      }, 20);
+
+      function oyunuDuraklat() {
+        oyunBitti = true;
+        clearInterval(hareketAralığı);
+        alert('Oyun bitti! Skorunuz: ' + skor);
+        skor = 0;
+        puan.innerHTML = 0;
+        oyunBitti = false;
+        engeller.forEach(function(engel) {
+          engel.style.animationDuration = '2s';
+        });
+        kuş.style.top = '200px';
+      }
+
+      document.addEventListener('keydown', function(event) {
+        if (event.keyCode === 32) {
+          hareketEttir(-30);
+        }
+      });
+    </script>
+  </body>
+</html>
